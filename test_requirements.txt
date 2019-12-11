@@ -7,7 +7,7 @@ click==6.7
 cryptography==2.0.3
 dictobj==0.4
 enum34==1.1.6
-Flask==0.12.2
+Flask==1.0
 Flask-Cavage==0.4.3
 httpsig==1.1.2
 httpsig-cffi==15.0.0
