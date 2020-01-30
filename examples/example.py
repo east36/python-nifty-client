@@ -70,6 +70,23 @@ def enumerate_online_checkout_transactions(client, logger, **kwargs):
     logger.info("")
 
 
+def enumerate_stk_push_transactions(client, logger, **kwargs):
+    result = client.stkpush.list_transactions(**kwargs)
+    logger.info(
+        (
+            "[i] Viewing {result.returned_resultset_size} "
+            "transactions out of {result.available_resultset_size}"
+        ).format(result=result)
+    )
+    for transaction in result.transactions:
+        logger.info(
+            (
+                " > Transaction: phone_number={trx.phone_number}, "
+                "payment_id={trx.payment_id}, status={trx.status}"
+            ).format(trx=transaction))
+    logger.info("")
+
+
 if __name__ == '__main__':
     logger = mk_logger()
     client = NiftyClient(Config(), logger)
@@ -134,3 +151,15 @@ if __name__ == '__main__':
             "#{trx.payment_id}> Requested #{trx.transaction_amount}"
             " from #{trx.phone_number}").format(trx=result.transactions[0])
     enumerate_online_checkout_transactions(client, logger, limit=1, offset=2)
+
+    # Stk Push
+    # Iniate a transaction
+    result = client.stkpush.initiate_stk_push(
+        phone_number='25471123456', transaction_amount=10,
+        service_reference_id="python-test",
+        wallet_id='3E4320E6-63C8-417C-97A9-B270CAEFBBBF')
+    if result and result.transactions:
+        print (
+            "#{trx.payment_id}> Requested #{trx.transaction_amount}"
+            " from #{trx.phone_number}").format(trx=result.transactions[0])
+    enumerate_stk_push_transactions(client, logger, limit=1, offset=2)
