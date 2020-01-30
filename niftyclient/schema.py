@@ -75,3 +75,29 @@ class OnlineCheckoutTransactionSchema(ResponseSchema):
         result.transactions = [
             DictionaryObject(resultset) for resultset in returned_resultset]
         return result
+
+
+class StkPushTransactionSchema(ResponseSchema):
+    class StkTransaction(Schema):
+        phone_number = fields.Str()
+        callback_url = fields.Str(allow_none=True)
+        created_at = fields.DateTime()
+        last_modified = fields.DateTime()
+        status = fields.Str()
+        status_code = fields.Str()
+        status_description = fields.Str()
+        transaction_id = fields.Str(allow_none=True)
+        service_reference_id = fields.Str(allow_none=True)
+        user_id = fields.UUID()
+        transaction_amount = fields.Decimal()
+        transaction_tracking_id = fields.UUID()
+
+    returned_resultset = fields.Nested(StkTransaction, many=True)
+
+    @post_load
+    def make_transaction(self, data):
+        returned_resultset = data.pop('returned_resultset', [])
+        result = MutableDictionaryObject(data)
+        result.transactions = [
+            DictionaryObject(resultset) for resultset in returned_resultset]
+        return result

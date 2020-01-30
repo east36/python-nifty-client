@@ -2,6 +2,7 @@ import logging
 from .c2b import C2B
 from .wallet import Wallet
 from .online_checkout import OnlineCheckout
+from .stk_push import StkPush
 
 
 class NiftyClient(object):
@@ -10,3 +11,4 @@ class NiftyClient(object):
         self.c2b = C2B(config, self.logger)
         self.wallet = Wallet(config, self.logger)
         self.online_checkout = OnlineCheckout(config, self.logger)
+        self.stkpush = StkPush(config, self.logger)
