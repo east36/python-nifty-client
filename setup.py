@@ -29,7 +29,7 @@ setup(
     include_package_data=True,
     platforms='any',
     install_requires=[
-        'httpsig_cffi', 'dictobj', 'requests', 'marshmallow'
+        'httpsig_cffi', 'dictobj', 'requests', 'marshmallow<=2.11.0'
     ],
     classifiers=[
         'Development Status :: 4 - Beta',
