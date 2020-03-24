@@ -17,7 +17,7 @@ with open('README.rst', 'r') as f:
 
 setup(
     name='niftyclient',
-    version='0.2.3',
+    version='0.2.4',
     url='https://bitbucket.org/east36/python-nifty-client',
     license='GPLv3',
     author='Laban Mwangi',
